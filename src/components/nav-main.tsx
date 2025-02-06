@@ -9,7 +9,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-export function NavMain({ onSelect }) {
+interface select {
+  onSelect: (item: string)=> void
+}
+
+export function NavMain({ onSelect }:select) {
   const items = [
     { title: "Portfolio", icon: Folder },
     { title: "Medical History", icon: FileText },
