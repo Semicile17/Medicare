@@ -1,60 +1,35 @@
 "use client"
+import React from "react";
+import Sidebar from "./Sidebar";
+import Portfolio from "./portfolio/Portfolio";
+import AIAssistant from "./aiassistant/AIAssistant";
+import MedicalHistory from "./medicalhistory/MedicalHistory";
+import ConsultDoctor from "./consultdoctor/ConsultDoctor";
+import { useState } from "react";
 
-import { useState } from "react"
-import { AppSidebar } from "@/components/app-sidebar"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { ConsultDoctor } from "./ConsultDoctor"
-import { HealthReports } from "./HealthReports"
-import { MedicalHistory } from "./MedicalHistory"
-import { Portfolio } from "./Portfolio"
-import { MyReports } from "./MyReports"
-import { AIMedicalHelp } from "./AIHelp"
-
-
-export default function Dashboard() {
-  const [selectedItem, setSelectedItem] = useState<string | null>(null)
-
-  // Content to display based on selection
-  const renderContent = () => {
-    switch (selectedItem) {
-      case "Portfolio":
-        return <Portfolio />
-      case "Medical History":
-        return <MedicalHistory />
-      case "My Reports":
-        return <MyReports />
-      case "AI Medical Help":
-        return <AIMedicalHelp />
-      case "Consult a Doctor":
-        return <ConsultDoctor />
-      case "Health Reports":
-        return <HealthReports />
-      default:
-        return (
-          <div className="p-4 text-muted-foreground">
-            Select an item from the sidebar to view details.
-          </div>
-        )
-    }
-  }
-
+const Dashboard = () => {
+    const [activeComponent, setActiveComponent] = useState("Portfolio"); // Default component
+    const renderComponent = () => {
+        switch (activeComponent) {
+          case "Portfolio":
+            return <Portfolio />;
+          case "AIAssistant":
+            return <AIAssistant />;
+          case "MedicalHistory":
+            return <MedicalHistory />;
+          case "ConsultDoctor":
+            return <ConsultDoctor />;
+          default:
+            return <Portfolio />;
+        }
+      };
   return (
-    <SidebarProvider>
-      <AppSidebar onSelect={setSelectedItem} /> {/* Pass handler to sidebar */}
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 md:flex-row">
-          <div className="w-full">{renderContent()}</div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  )
-}
+    <div className="flex">
+     <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
+      {/* Render the active component beside the sidebar */}
+      <div className="flex-1 p-4">{renderComponent()}</div>
+    </div>
+  );
+};
+
+export default Dashboard;

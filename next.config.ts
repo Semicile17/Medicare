@@ -1,18 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* config options here */
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "img.freepik.com",
+        hostname: "w1.pngwing.com", // Replace with the external domain
       },
     ],
   },
 };
 
-export default nextConfig; // Use `export default` instead of `module.exports`
+export default nextConfig;
