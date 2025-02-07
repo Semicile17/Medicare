@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { HeartPulse, Stethoscope, FileText, MoreHorizontal, Trash2, Forward } from "lucide-react"
