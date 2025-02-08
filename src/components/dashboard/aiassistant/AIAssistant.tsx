@@ -43,7 +43,7 @@ const AIAssistant = () => {
 
   return (
     <div className="w-full h-full flex items-center">
-      <div className="p-6 bg-transparent rounded-lg shadow-md flex flex-col lg:h-full w-full md:w-4/5 h-[670px] mx-auto">
+      <div className="p-6 bg-transparent rounded-lg shadow-md flex flex-col md:h-full w-full md:w-4/5 h-[670px] mx-auto">
         <div className="flex-1 overflow-y-auto p-4 mb-4 rounded-lg bg-transparent">
           {messages.map((msg, index) => (
             <div
