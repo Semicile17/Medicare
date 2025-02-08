@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { TextOutput } from "./actions";
 import { ClipboardPlusIcon, Send } from "lucide-react";
 import ReportsSection from "./ReportsSection";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
@@ -14,37 +16,38 @@ const AIAssistant = () => {
   );
   const [question, setQuestion] = useState("");
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
+  const [loading,setLoading] = useState<boolean>(false);
   // Handle asking a question
-  const handleAskQuestion = async () => {
-    if (!question) return;
+ // Handle asking a question
+ const handleAskQuestion = async () => {
+  setLoading(true); // Set loading to true when the question is being asked
+  if (!question){
 
-    // Add user's question to chat
-    setMessages((prev) => [...prev, { sender: "user", text: question }]);
-    setQuestion("");
+    setLoading(false)
+    return;
 
-    try {
-      // const response = await fetch("/api/ask-ai", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ question, file: uploadedFile?.name || null }),
-      // });
-      // const data = await response.json();
-      // setMessages((prev) => [...prev, { sender: "ai", text: data.response }]);
-    } catch (error) {
-      console.error("Error fetching AI response:", error);
-      setMessages((prev) => [
-        ...prev,
-        { sender: "ai", text: "Error processing request." },
-      ]);
-    }
-  };
+  } 
+  
+  setMessages((prev) => [...prev, { sender: "user", text: question }]);
+  setQuestion("");
 
+  try {
+    const response = await TextOutput(question);
+    setMessages((prev) => [...prev, { sender: "ai", text: response }]);
+  } catch (error) {
+    console.error("Error fetching AI response:", error);
+    setMessages((prev) => [
+      ...prev,
+      { sender: "ai", text: "Error processing request." },
+    ]);
+  } finally {
+    setLoading(false); // Set loading to false after the response is processed
+  }
+};
   return (
     <div className="w-full h-full flex items-center">
       <div className="p-6 bg-transparent rounded-lg shadow-md flex flex-col md:h-full w-full md:w-4/5 h-[670px] mx-auto">
-        <div className="flex-1 overflow-y-auto p-4 mb-4 rounded-lg bg-transparent">
+      <div className="flex-1 overflow-y-auto p-4 mb-4 rounded-lg bg-transparent">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -57,6 +60,13 @@ const AIAssistant = () => {
               {msg.text}
             </div>
           ))}
+
+          {/* Show loading spinner when AI is processing the response */}
+          {loading && (
+            <div className="flex justify-center items-center p-2 my-4 rounded-lg text-xs md:text-sm w-fit max-w-[70%] bg-yellow-100 text-black">
+              <Loader2 className="animate-spin" size={20} />
+            </div>
+          )}
         </div>
 
         <InputSection mediaUrl={mediaUrl} setMediaUrl={setMediaUrl} question={question} setQuestion={setQuestion} handleAskQuestion={handleAskQuestion} />
