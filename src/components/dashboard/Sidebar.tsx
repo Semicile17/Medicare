@@ -8,6 +8,7 @@ import {
   Stethoscope,
   PanelRightOpen,
   PanelLeftClose,
+  Clipboard,
 } from "lucide-react";
 import Link from "next/link";
 import UserNav from "./UserNav";
@@ -73,6 +74,10 @@ const Sidebar = ({
                 name: "ConsultDoctor",
                 icon: <Stethoscope className="mr-2 h-4 w-4" />,
               },
+              {
+                name: "MyReports",
+                icon: <Clipboard className="mr-2 h-4 w-4" />,
+              },
             ].map(({ name, icon }) => (
               <Button
                 key={name}
@@ -82,7 +87,10 @@ const Sidebar = ({
                     ? "bg-green-800 text-white hover:bg-green-800 hover:text-white"
                     : "hover:bg-green-200"
                 }`}
-                onClick={() => setActiveComponent(name)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setActiveComponent(name);
+                }}
               >
                 {icon}
                 {name.replace(/([A-Z])/g, " $1").trim()}{" "}

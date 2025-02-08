@@ -20,7 +20,7 @@ const InputSection: React.FC<InputSectionProps> = ({
   handleAskQuestion,
 }) => {
   return (
-    <div className="flex items-center space-x-2 w-full">
+    <div className="flex items-center space-x-2 w-full mb-10">
       <Input
         type="text"
         placeholder="Ask a question..."

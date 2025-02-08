@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "w1.pngwing.com", // Replace with the external domain
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com", // Replace with the external domain
+      },
     ],
   },
 };
