@@ -36,7 +36,7 @@ const Sidebar = ({
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 transition-transform justify-center flex duration-200 ease-in-out z-30`}
       >
-        <div className="flex flex-col h-screen p-4 bg-green-100 text-black w-64">
+        <div className="flex flex-col h-screen p-4 bg-yellow-100 text-black w-64">
           {/* Company Logo and Name */}
           <div className="flex items-center mb-8 justify-between">
             <div className="flex items-center">

@@ -24,10 +24,10 @@ const Dashboard = () => {
         }
       };
   return (
-    <div className="flex">
+    <div className="md:flex">
      <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
       {/* Render the active component beside the sidebar */}
-      <div className="flex-1 p-4">{renderComponent()}</div>
+      <div className="w-full p-2 h-full">{renderComponent()}</div>
     </div>
   );
 };
