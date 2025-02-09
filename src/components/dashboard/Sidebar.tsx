@@ -25,10 +25,11 @@ const Sidebar = ({
   return (
     <>
       {/* Hamburger Menu for Mobile */}
-      <div className="lg:hidden p-4">
+      <div className="lg:hidden space-x-3 flex items-center p-2 w-full bg-green-800">
         <Button variant="ghost" onClick={() => setIsOpen(!isOpen)}>
-          <PanelRightOpen className="h-6 w-6" />
+          <PanelRightOpen className="h-6 w-6"/>
         </Button>
+        <h1 className="font-bold w-full">{activeComponent}</h1>
       </div>
 
       {/* Sidebar */}
@@ -49,7 +50,7 @@ const Sidebar = ({
             <Button
               variant="ghost"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden"
+              className="md:hidden hover:bg-green-700 hover:text-white"
             >
               <PanelLeftClose className="h-6 w-6" />
             </Button>

@@ -20,6 +20,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ArrowRight, Plus, View } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface Folder {
   id: string;
@@ -41,8 +43,10 @@ const MyReports = () => {
     },
   ]);
 
+  const [newFolderName, setNewFolderName] = useState(""); // State for the new folder name
+
   const handleUploadSuccess = (
-    result:any ,
+    result: any,
     folderId: string,
     widget: { close: () => void }
   ) => {
@@ -59,15 +63,33 @@ const MyReports = () => {
     }
   };
 
+  const handleCreateFolder = () => {
+    if (newFolderName.trim() === "") {
+      alert("Folder name cannot be empty"); // Basic validation
+      return;
+    }
+
+    const newFolder: Folder = {
+      id: String(folders.length + 1), // Generate a simple ID (you might want to use a UUID in production)
+      name: newFolderName,
+      images: [], // Start with an empty array of images
+    };
+
+    setFolders((prev) => [...prev, newFolder]); // Add the new folder to the state
+    setNewFolderName(""); // Reset the input field
+  };
+
   return (
-    <div className="w-full h-full p-6 md:flex md:flex-wrap grid grid-cols-2 gap-4">
+    <div className="w-full h-full p-6 md:flex md:gap-4 md:flex-wrap space-y-5">
       {folders.map((folder) => (
-        <Card key={folder.id} className="md:w-1/6 h-48">
+        <Card key={folder.id} className="md:w-1/6 h-48 flex flex-col justify-center ">
           <CardHeader className="md:p-5 p-3">
-            <CardTitle className="text-sm md:text-md">{folder.name}</CardTitle>
+            <CardTitle className="text-sm md:text-md text-wrap">
+              {folder.name}
+            </CardTitle>
             <CardDescription>{folder.images.length} reports</CardDescription>
           </CardHeader>
-          <CardContent className="md:flex grid grid-cols-4 justify-center md:gap-1 md:p-1">
+          <CardContent className="flex justify-center md:gap-1 md:p-1">
             {folder.images.slice(0, 3).map((image, index) => (
               <Image
                 key={index}
@@ -80,10 +102,13 @@ const MyReports = () => {
             {true && (
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="ghost" className="md:h-10 md:w-10 h-6 w-6 text-xs rounded-full">
+                  <Button
+                    variant="ghost"
+                    className="md:h-10 md:w-10 h-6 w-6 text-xs bg-green-600 rounded-full"
+                  >
                     {folder.images.length > 3
                       ? `+${folder.images.length - 3}`
-                      : "view"}
+                      : (folder.images.length==0?'No reports':<View className="h-6 w-6"/>)}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -91,7 +116,7 @@ const MyReports = () => {
                     <DialogTitle>{folder.name}</DialogTitle>
                     <DialogDescription>View your reports</DialogDescription>
                   </DialogHeader>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 ">
                     {folder.images.map((image, index) => (
                       <Image
                         key={index}
@@ -128,6 +153,31 @@ const MyReports = () => {
           </CardFooter>
         </Card>
       ))}
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            className="fixed right-6 bottom-6 md:relative md:right-0 md:bottom-0 md:w-1/6 md:h-48 md:rounded-lg md:bg-white md:text-black h-12 w-12 rounded-full bg-green-800"
+            variant="ghost"
+          >
+            <Plus className="h-10 w-10" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create Folder</DialogTitle>
+            <DialogDescription>Add a new folder</DialogDescription>
+          </DialogHeader>
+          <Input
+            placeholder="Folder Name"
+            value={newFolderName}
+            onChange={(e) => setNewFolderName(e.target.value)} // Update the state as the user types
+          />
+          <Button variant="outline" onClick={handleCreateFolder}>
+            Create
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

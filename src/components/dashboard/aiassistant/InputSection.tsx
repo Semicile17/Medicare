@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import ReportsSection from "./ReportsSection";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import React from "react";
-import { ClipboardPlusIcon, Send } from "lucide-react";
+import { ArrowUp, ClipboardPlusIcon, } from "lucide-react";
 
 interface InputSectionProps {
   loading:boolean
@@ -74,7 +74,10 @@ const InputSection: React.FC<InputSectionProps> = ({
           disabled={loading}
           className="bg-yellow-200 text-black flex justify-center items-center hover:bg-green-700 h-10 w-10  hover:text-white rounded-full"
         >
-          <Send className="h-5 w-5" />
+      
+         <ArrowUp className="h-5 w-5" />
+         
+          
         </Button>
         </div>
        
