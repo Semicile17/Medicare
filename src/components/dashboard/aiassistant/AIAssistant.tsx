@@ -12,7 +12,7 @@ import InputSection from "./InputSection";
 import ChatBar from "./ChatBar";
 
 const AIAssistant = () => {
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
+  const [messages, setMessages] = useState<{ sender: string; text: string ;image?:string}[]>([]);
   const [question, setQuestion] = useState("");
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
