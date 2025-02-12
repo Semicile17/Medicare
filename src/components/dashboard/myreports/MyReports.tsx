@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ArrowRight, Plus, View } from "lucide-react";
+import { Eye, Plus} from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 interface Folder {
@@ -44,6 +44,7 @@ const MyReports = () => {
   ]);
 
   const [newFolderName, setNewFolderName] = useState(""); // State for the new folder name
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to control the dialog visibility
 
   const handleUploadSuccess = (
     result: any,
@@ -77,12 +78,16 @@ const MyReports = () => {
 
     setFolders((prev) => [...prev, newFolder]); // Add the new folder to the state
     setNewFolderName(""); // Reset the input field
+    setIsDialogOpen(false); // Close the dialog
   };
 
   return (
     <div className="w-full h-full p-6 md:flex md:gap-4 md:flex-wrap space-y-5">
       {folders.map((folder) => (
-        <Card key={folder.id} className="md:w-1/6 h-48 flex flex-col justify-center ">
+        <Card
+          key={folder.id}
+          className="md:w-1/6 h-48 flex flex-col justify-center "
+        >
           <CardHeader className="md:p-5 p-3">
             <CardTitle className="text-sm md:text-md text-wrap">
               {folder.name}
@@ -102,13 +107,18 @@ const MyReports = () => {
             {true && (
               <Dialog>
                 <DialogTrigger asChild>
+                  
                   <Button
                     variant="ghost"
-                    className="md:h-10 md:w-10 h-6 w-6 text-xs bg-green-600 rounded-full"
+                    className={`md:h-10 md:w-10 h-6 w-6 text-xs ${folder.images.length===0?"bg-transparent":"bg-green-600"}  rounded-full`}
                   >
-                    {folder.images.length > 3
-                      ? `+${folder.images.length - 3}`
-                      : (folder.images.length==0?'No reports':<View className="h-6 w-6"/>)}
+                    {folder.images.length > 3 ? (
+                      `+${folder.images.length - 3}`
+                    ) : folder.images.length == 0 ? (
+                      "No reports"
+                    ) : (
+                      <Eye className="h-6 w-6" />
+                    )}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -154,11 +164,12 @@ const MyReports = () => {
         </Card>
       ))}
 
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button
             className="fixed right-6 bottom-6 md:relative md:right-0 md:bottom-0 md:w-1/6 md:h-48 md:rounded-lg md:bg-white md:text-black h-12 w-12 rounded-full bg-green-800"
             variant="ghost"
+            onClick={() => setIsDialogOpen(true)}
           >
             <Plus className="h-10 w-10" />
           </Button>
