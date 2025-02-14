@@ -109,7 +109,7 @@ const MyReports = () => {
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    className={`h-6 w-6 md:h-10 md:w-10 text-xs ${
+                    className={`h-8 w-8 md:h-10 md:w-10 text-xs ${
                       folder.images.length === 0
                         ? "bg-transparent"
                         : "bg-green-600"
@@ -120,7 +120,7 @@ const MyReports = () => {
                     ) : folder.images.length == 0 ? (
                       "No reports"
                     ) : (
-                      <Eye className="h-6 w-6" />
+                      <Eye/>
                     )}
                   </Button>
                 </DialogTrigger>
@@ -174,7 +174,7 @@ const MyReports = () => {
             variant="ghost"
             onClick={() => setIsDialogOpen(true)}
           >
-            <Plus className="h-10 w-10" />
+            <Plus/>
           </Button>
         </DialogTrigger>
         <DialogContent>
