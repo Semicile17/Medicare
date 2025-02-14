@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Eye, Plus} from "lucide-react";
+import { Eye, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 interface Folder {
@@ -82,19 +82,19 @@ const MyReports = () => {
   };
 
   return (
-    <div className="w-full h-full p-6 md:flex md:gap-4 md:flex-wrap space-y-5">
+    <div className="w-full h-full p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       {folders.map((folder) => (
         <Card
           key={folder.id}
-          className="md:w-1/6 h-48 flex flex-col justify-center "
+          className="w-full h-48 flex flex-col justify-center"
         >
-          <CardHeader className="md:p-5 p-3">
+          <CardHeader className="p-3 md:p-5">
             <CardTitle className="text-sm md:text-md text-wrap">
               {folder.name}
             </CardTitle>
             <CardDescription>{folder.images.length} reports</CardDescription>
           </CardHeader>
-          <CardContent className="flex justify-center md:gap-1 md:p-1">
+          <CardContent className="flex justify-center gap-1 p-1">
             {folder.images.slice(0, 3).map((image, index) => (
               <Image
                 key={index}
@@ -107,10 +107,13 @@ const MyReports = () => {
             {true && (
               <Dialog>
                 <DialogTrigger asChild>
-                  
                   <Button
                     variant="ghost"
-                    className={`md:h-10 md:w-10 h-6 w-6 text-xs ${folder.images.length===0?"bg-transparent":"bg-green-600"}  rounded-full`}
+                    className={`h-6 w-6 md:h-10 md:w-10 text-xs ${
+                      folder.images.length === 0
+                        ? "bg-transparent"
+                        : "bg-green-600"
+                    } rounded-full`}
                   >
                     {folder.images.length > 3 ? (
                       `+${folder.images.length - 3}`
@@ -126,7 +129,7 @@ const MyReports = () => {
                     <DialogTitle>{folder.name}</DialogTitle>
                     <DialogDescription>View your reports</DialogDescription>
                   </DialogHeader>
-                  <div className="grid grid-cols-3 ">
+                  <div className="grid grid-cols-3 gap-2">
                     {folder.images.map((image, index) => (
                       <Image
                         key={index}
@@ -167,7 +170,7 @@ const MyReports = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button
-            className="fixed right-6 bottom-6 md:relative md:right-0 md:bottom-0 md:w-1/6 md:h-48 md:rounded-lg md:bg-white md:text-black h-12 w-12 rounded-full bg-green-800"
+            className="fixed right-6 bottom-6 md:relative md:right-0 md:bottom-0 md:w-full md:h-48 md:rounded-lg md:bg-white md:text-black h-12 w-12 rounded-full bg-green-800"
             variant="ghost"
             onClick={() => setIsDialogOpen(true)}
           >

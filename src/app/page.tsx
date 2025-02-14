@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Landing from "@/components/landing/Landing";
